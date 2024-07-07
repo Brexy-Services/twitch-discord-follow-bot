@@ -40,7 +40,7 @@ def get_id(user):
 def GetFollowCount(channel):
 
     headers = {
-        'Authorization': 'Oath xy16yngeyvtptbo2piyw018tqcikgn',
+        'Authorization': 'Oath 9d69epnjsu3y6yt2l3d7pb7jg2sk0z', # Change this if goes invalid / Is only returning None
         "Client-ID": "kd1unb4b3q4t58fwlpcbzcbnm76a8fp",
         'Content-Type': 'application/json',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
