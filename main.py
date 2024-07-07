@@ -10,32 +10,6 @@ intents     = discord.Intents.all()
 bot         = commands.Bot(command_prefix=".", help_command=None, intents=intents)
 threads     = 25 # Lower this if your bot does not respond while sending followers
 
-def GetUser(token):
-
-    headers = {
-    'accept': '*/*',
-    'accept-language': 'en-US,en;q=0.9',
-    'authorization': 'Bearer ' + token,
-    'cache-control': 'no-cache',
-    'origin': 'https://barrycarlyon.github.io',
-    'pragma': 'no-cache',
-    'priority': 'u=1, i',
-    'referer': 'https://barrycarlyon.github.io/',
-    'sec-ch-ua': '"Google Chrome";v="125", "Chromium";v="125", "Not.A/Brand";v="24"',
-    'sec-ch-ua-mobile': '?0',
-    'sec-ch-ua-platform': '"Windows"',
-    'sec-fetch-dest': 'empty',
-    'sec-fetch-mode': 'cors',
-    'sec-fetch-site': 'cross-site',
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
-    }
-
-    response = requests.get('https://id.twitch.tv/oauth2/validate', headers=headers)
-    try:    
-        return response.json()['user_id']
-    except:
-        return None
-
 
 def get_id(user):
     json = {"operationName": "ChannelShell",
@@ -127,12 +101,9 @@ def follow(target_id , amount):
             "X-App-Version": "15.0.0",
         }
         proxy_list = open('proxys.txt','r').read().splitlines()
+        proxy      = random.choice(proxy_list)
+        proxies    = {'http': f'http://{proxy}/','https':f'http://{proxy}/'}
 
-        proxy = random.choice(proxy_list)
-        proxies = {
-            'http': f'http://{proxy}/',
-            'https':f'http://{proxy}/'
-        }
         repsonse = requests.post('https://gql.twitch.tv/gql', json=payload, headers=headers, proxies=proxies)
         print(repsonse.text)
 
