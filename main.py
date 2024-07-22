@@ -73,39 +73,48 @@ def follow(target_id , amount):
 
     for i in range(int(amount)):
 
-        tokens = random.choice(open("tokens.txt", "r" ).read().splitlines())
+        with open('Input/tokens.txt', 'r') as file:
+            lines = file.readlines()
 
-        payload = {
-            "operationName": "FollowUserMutation",
-            "variables": {
-                "targetId": target_id,
-                "disableNotifications": False
-            },
-            "extensions": {
-                "persistedQuery": {
-                    "version": 1,
-                    "sha256Hash": "cd112d9483ede85fa0da514a5657141c24396efbc7bac0ea3623e839206573b8"
+            random_line = random.choice(lines)
+            token, integ = random_line.strip().split("|")
+
+
+            payload = {
+                    "operationName": "FollowUserMutation",
+                    "variables": {
+                        "targetId": target_id,
+                        "disableNotifications": False
+                    },
+                    "extensions": {
+                        "persistedQuery": {
+                            "version": 1,
+                            "sha256Hash": "cd112d9483ede85fa0da514a5657141c24396efbc7bac0ea3623e839206573b8"
+                        }
+                    }
                 }
+            
+            proxy_list = open('Input/proxys.txt','r').read().splitlines()
+            proxy = random.choice(proxy_list)
+            proxies = {
+                'http': f'http://{proxy}/',
             }
-        }
-
-        headers = {
-            "Api-Consumer-Type": "mobile; Android/1500000",
-            "Authorization": f"OAuth {tokens}",
-            "Client-ID": "kd1unb4b3q4t58fwlpcbzcbnm76a8fp",
-            "Connection": "Keep-Alive",
-            "Content-Type": "application/json",
-            "Host": "gql.twitch.tv",
-            "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 7.1.2; SM-G988N Build/NRD90M) tv.twitch.android.app/15.0.0/1500000",
-            "X-APOLLO-OPERATION-NAME": "FollowUserMutation",
-            "X-App-Version": "15.0.0",
-        }
-        proxy_list = open('proxys.txt','r').read().splitlines()
-        proxy      = random.choice(proxy_list)
-        proxies    = {'http': f'http://{proxy}/','https':f'http://{proxy}/'}
-
-        repsonse = requests.post('https://gql.twitch.tv/gql', json=payload, headers=headers, proxies=proxies)
-        print(repsonse.text)
+            
+            headers = {
+                "Api-Consumer-Type": "mobile; Android/1500000",
+                "Authorization": f"OAuth {token}",
+                "Client-ID": clientid,
+                "Connection": "Keep-Alive",
+                "Client-Integrity": integ,
+                "Content-Type": "application/json",
+                "Host": "gql.twitch.tv",
+                "User-Agent": "useragent",
+                "X-APOLLO-OPERATION-NAME": "FollowUserMutation",
+                "X-App-Version": "15.0.0",
+                    }
+            
+            response = requests.post('https://gql.twitch.tv/gql', json=payload, headers=headers,proxies=proxies)
+            print(response.text)
 
 
 @bot.command()
