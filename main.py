@@ -73,7 +73,7 @@ def follow(target_id , amount):
 
     for i in range(int(amount)):
 
-        with open('Input/tokens.txt', 'r') as file:
+        with open('tokens.txt', 'r') as file:
             lines = file.readlines()
 
             random_line = random.choice(lines)
@@ -94,7 +94,7 @@ def follow(target_id , amount):
                     }
                 }
             
-            proxy_list = open('Input/proxys.txt','r').read().splitlines()
+            proxy_list = open('proxys.txt','r').read().splitlines()
             proxy = random.choice(proxy_list)
             proxies = {
                 'http': f'http://{proxy}/',
