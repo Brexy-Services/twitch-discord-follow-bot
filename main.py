@@ -103,7 +103,7 @@ def follow(target_id , amount):
             headers = {
                 "Api-Consumer-Type": "mobile; Android/1500000",
                 "Authorization": f"OAuth {token}",
-                "Client-ID": clientid,
+                "Client-ID": "r8s4dac0uhzifbpu9sjdiwzctle17ff",
                 "Connection": "Keep-Alive",
                 "Client-Integrity": integ,
                 "Content-Type": "application/json",
