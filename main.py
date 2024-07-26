@@ -1,3 +1,5 @@
+#Join https://discord.gg/E85ynqyrry
+
 import  random,     threading, requests, discord, os
 
 from    discord.ext import commands
